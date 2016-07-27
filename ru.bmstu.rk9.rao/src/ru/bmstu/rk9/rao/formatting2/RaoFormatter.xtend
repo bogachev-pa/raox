@@ -5,7 +5,7 @@ import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.xbase.formatting2.XbaseFormatter
 import org.eclipse.xtext.xbase.formatting2.XbaseFormatterPreferenceKeys
 import ru.bmstu.rk9.rao.rao.DefaultMethod
-import ru.bmstu.rk9.rao.rao.EntityCreation
+import ru.bmstu.rk9.rao.rao.Sequence
 import ru.bmstu.rk9.rao.rao.EnumDeclaration
 import ru.bmstu.rk9.rao.rao.Event
 import ru.bmstu.rk9.rao.rao.FieldDeclaration
@@ -19,6 +19,7 @@ import ru.bmstu.rk9.rao.rao.RelevantResourceTuple
 import ru.bmstu.rk9.rao.rao.ResourceDeclaration
 import ru.bmstu.rk9.rao.rao.ResourceType
 import ru.bmstu.rk9.rao.rao.Search
+import ru.bmstu.rk9.rao.rao.Constant
 
 class RaoFormatter extends XbaseFormatter {
 	def dispatch void format(Event event, extension IFormattableDocument document) {
@@ -145,9 +146,14 @@ class RaoFormatter extends XbaseFormatter {
 		format(resourceDeclaration.constructor, document)
 	}
 
-	def dispatch void format(EntityCreation entityCreation, extension IFormattableDocument document) {
-		entityCreation.append(XbaseFormatterPreferenceKeys.blankLinesAroundExpression)
-		format(entityCreation.constructor, document)
+	def dispatch void format(Sequence sequence, extension IFormattableDocument document) {
+		sequence.append(XbaseFormatterPreferenceKeys.blankLinesAroundExpression)
+		format(sequence.constructor, document)
+	}
+
+	def dispatch void format(Constant constant, extension IFormattableDocument document) {
+		constant.append(XbaseFormatterPreferenceKeys.blankLinesAroundExpression)
+		format(constant.constructor, document)
 	}
 
 	def formatAsBlock(EObject obj, extension IFormattableDocument document) {

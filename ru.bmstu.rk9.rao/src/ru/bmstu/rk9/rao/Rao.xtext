@@ -25,13 +25,9 @@ RaoEntity
 	| EnumDeclaration
 	| Logic
 	| Search
-	| EntityCreation
-	| ResourceDeclaration
-;
-
-EntityCreation
-	: Sequence
+	| Sequence
 	| Constant
+	| ResourceDeclaration
 ;
 
 ResourceDeclaration:

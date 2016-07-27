@@ -27,7 +27,6 @@ import ru.bmstu.rk9.rao.rao.Logic
 import ru.bmstu.rk9.rao.rao.Search
 import org.eclipse.xtext.xbase.XNullLiteral
 import org.eclipse.xtext.xbase.XExpression
-import ru.bmstu.rk9.rao.rao.EntityCreation
 import ru.bmstu.rk9.rao.rao.RaoEntity
 import java.util.Set
 import java.util.HashSet
@@ -287,7 +286,7 @@ class RaoValidator extends AbstractRaoValidator
 	def checkResourceDeclaration(ResourceDeclaration resource) {
 		if (!resource.constructor.actualType.isSubtypeOf(typeof(ru.bmstu.rk9.rao.lib.resource.Resource)))
 			error("Error in declaration of \"" + resource.name + "\": only Rao resources are allowed.",
-				RaoPackage.eINSTANCE.entityCreation_Constructor)
+				RaoPackage.eINSTANCE.resourceDeclaration_Constructor)
 	}
 
 	@Check
@@ -302,7 +301,7 @@ class RaoValidator extends AbstractRaoValidator
 		if (!sequence.constructor.actualType.isSubtypeOf(typeof(NumericSequence)) &&
 			!sequence.constructor.actualType.isSubtypeOf(typeof(ArbitraryTypeSequence))) {
 			error("Error in declaration of \"" + sequence.name + "\": only Rao sequences are allowed.",
-				RaoPackage.eINSTANCE.entityCreation_Constructor)
+				RaoPackage.eINSTANCE.sequence_Constructor)
 		}
 	}
 
@@ -323,10 +322,10 @@ class RaoValidator extends AbstractRaoValidator
 	}
 
 	@Check
-	def checkEntityNotNull(EntityCreation entity) {
-		if (entity.constructor.checkForNull)
-			error("Error in declaration of \"" + entity.name + "\": cannot be null.",
-				RaoPackage.eINSTANCE.entityCreation_Constructor)
+	def checkConstantNotNull(Constant constant) {
+		if (constant.constructor.checkForNull)
+			error("Error in declaration of \"" + constant.name + "\": cannot be null.",
+				RaoPackage.eINSTANCE.constant_Constructor)
 	}
 
 	def private checkForNull(XExpression expression) {
