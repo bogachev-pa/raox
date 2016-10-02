@@ -169,6 +169,14 @@ public class BuildJobProvider {
 				if (srcGenErrorMessage != null)
 					return new Status(IStatus.ERROR, pluginId, BuildUtil.createErrorMessage(srcGenErrorMessage));
 
+				try {
+					recentProject.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+				} catch (CoreException e) {
+					e.printStackTrace();
+					return new Status(IStatus.ERROR, pluginId, BuildUtil.createErrorMessage("Failed to build project"),
+							e);
+				}
+
 				return Status.OK_STATUS;
 			}
 		};
